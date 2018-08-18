@@ -5,15 +5,30 @@ const { compose, withProps, withStateHandlers } = require("recompose");
 
  const Map = compose(withStateHandlers(() => ({
     isOpen: false,
+    openInfoWindow: null,
+    onclickList: null
   }), {
     onToggleOpen: ({ isOpen }) => () => ({
       isOpen: !isOpen,
-    })
+    }),
+    openInfoWindow: ({ openInfoWindow, isOpen }) => (i) => ({
+      isOpen: !isOpen,
+      InfoWindowIndex: i
+    }),
+    onclickList: (onclickList, openInfoWindow) => {
+      document.querySelector('.places').addEventListener('click', function (e) {
+        if (e.target && e.target.nodeName === "LI") {
+          openInfoWindow(e)
+        }
+      })
+    }
   }),
+
+
   withScriptjs,withGoogleMap)(props => (
       <GoogleMap
         center = { { lat: 42.148549, lng: 24.752780 } }
-        defaultZoom = { 14 }
+        defaultZoom = { 15 }
       >
 
       {
@@ -23,9 +38,9 @@ const { compose, withProps, withStateHandlers } = require("recompose");
               <Marker
               id={marker.id}
               position={marker.position}
-              onClick={props.onToggleOpen}
+              onClick={() => {props.openInfoWindow(marker.id)}}
               >
-              {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
+              {(props.isOpen && props.InfoWindowIndex === marker.id) && <InfoWindow onCloseClick={props.onToggleOpen}>
               <Info
               info={marker.id}/>
               </InfoWindow>}

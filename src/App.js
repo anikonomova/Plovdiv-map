@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import Map from './Map';
 
 class App extends Component {
@@ -16,7 +15,7 @@ class App extends Component {
             {"id": "Old town",
             "position": {lat: 42.151076, lng: 24.752288}
           },
-            {"id": "Singin fountaines",
+            {"id": "Singing fountaines",
             "position": {lat: 42.140633, lng: 24.745798}
           },
             {"id": "Monument of union",
@@ -26,6 +25,7 @@ class App extends Component {
   }
 
     render() {
+      const markers = this.state.markers;
 
       return (
         <div>
@@ -36,7 +36,14 @@ class App extends Component {
           <button type="button" className="btn btn-default btn-sm">
         <span className="glyphicon glyphicon-menu-hamburger"></span> Menu
       </button>
-          </div>
+      <div className = 'list'>
+      <ul className = 'places'>{
+        markers.map((marker,i) =>
+      (<li key={i}>{marker.id}</li>))
+      }
+      </ul>
+        </div>
+        </div>
         </section>
 
         <Map
