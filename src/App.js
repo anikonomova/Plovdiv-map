@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Map from './Map';
+import axios from 'axios';
 
 class App extends Component {
   state = {
@@ -23,7 +24,21 @@ class App extends Component {
           }
     ]
   }
+componentDidMount() {
+  this.getVenues()
+}
 
+getVenues = () => {
+  const endPoint = 'https://api.foursquare.com/v2/venues/search?ll=42.148549,24.752780&&query=sights&intent=checkin&client_id=SNUFI41U1RKL0CU4SQWG0JMXK1LHGB5T5GVNQQ22L521FJNA&client_secret=C0ULCJZYKJGXBUULDW0PGRU5HOS2GD1WL4GBYTC43VLK3OBM&v=20180819&v=20180819';
+
+axios.get(endPoint)
+.then(response => {
+  console.log(response)
+})
+.catch(error => {
+  console.log("Error!" + error)
+})
+}
     render() {
       const markers = this.state.markers;
 
@@ -40,6 +55,7 @@ class App extends Component {
       <ul className = 'places'>{
         markers.map((marker,i) =>
       (<li key={i}>{marker.id}</li>))
+        //onClick={() => {this.props.onToggleOpen(marker.id)}}
       }
       </ul>
         </div>
