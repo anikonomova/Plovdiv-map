@@ -37,12 +37,13 @@ const { compose, withProps, withStateHandlers } = require("recompose");
             <div key={marker.id}>
               <Marker
               id={marker.id}
-              position={marker.position}
+              name={marker.name}
+              position={{ lat: marker.location.lat, lng: marker.location.lng }}
               onClick={() => {props.openInfoWindow(marker.id)}}
               >
               {(props.isOpen && props.InfoWindowIndex === marker.id) && <InfoWindow onCloseClick={props.onToggleOpen}>
               <Info
-              info={marker.id}/>
+              info={marker.name}/>
               </InfoWindow>}
               </Marker>
   </div>

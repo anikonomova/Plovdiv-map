@@ -6,34 +6,20 @@ import axios from 'axios';
 class App extends Component {
   state = {
 
-      markers: [
-            {"id": "Ancient Roman theatre",
-            "position": {lat: 42.146884, lng: 24.751097}
-          },
-            {"id": "Roman staduim Philipopol",
-            "position": {lat: 42.147719, lng: 24.748050}
-          },
-            {"id": "Old town",
-            "position": {lat: 42.151076, lng: 24.752288}
-          },
-            {"id": "Singing fountaines",
-            "position": {lat: 42.140633, lng: 24.745798}
-          },
-            {"id": "Monument of union",
-            "position": {lat: 42.151364, lng: 24.744446}
-          }
-    ]
+      markers: []
   }
 componentDidMount() {
   this.getVenues()
 }
 
 getVenues = () => {
-  const endPoint = 'https://api.foursquare.com/v2/venues/search?ll=42.148549,24.752780&&query=sights&intent=checkin&client_id=SNUFI41U1RKL0CU4SQWG0JMXK1LHGB5T5GVNQQ22L521FJNA&client_secret=C0ULCJZYKJGXBUULDW0PGRU5HOS2GD1WL4GBYTC43VLK3OBM&v=20180819&v=20180819';
+  const endPoint = 'https://api.foursquare.com/v2/venues/search?ll=42.148549,24.752780&&query=restaurant&intent=checkin&client_id=SNUFI41U1RKL0CU4SQWG0JMXK1LHGB5T5GVNQQ22L521FJNA&client_secret=C0ULCJZYKJGXBUULDW0PGRU5HOS2GD1WL4GBYTC43VLK3OBM&v=20180819&v=20180819';
 
 axios.get(endPoint)
 .then(response => {
-  console.log(response)
+  this.setState ({
+    markers: response.data.response.venues
+  })
 })
 .catch(error => {
   console.log("Error!" + error)
@@ -54,7 +40,7 @@ axios.get(endPoint)
       <div className = 'list'>
       <ul className = 'places'>{
         markers.map((marker,i) =>
-      (<li key={i}>{marker.id}</li>))
+      (<li key={i}>{marker.name}</li>))
         //onClick={() => {this.props.onToggleOpen(marker.id)}}
       }
       </ul>
