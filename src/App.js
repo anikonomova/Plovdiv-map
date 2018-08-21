@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import Map from './Map';
 import axios from 'axios';
+import Hamburger from './hamburger'
 
 class App extends Component {
   state = {
-
-      markers: []
+      markers: [],
+      query:'',
+      places: []
   }
+
 componentDidMount() {
   this.getVenues()
 }
@@ -25,18 +28,44 @@ axios.get(endPoint)
   console.log("Error!" + error)
 })
 }
-    render() {
-      const markers = this.state.markers;
 
+    render() {
+      const {markers, query, places, infoWindow} = this.state;
+
+  /*  if (query) {
+      markers.forEach((l,i) => {
+        if(l.name.toLowerCase().includes(query.toLowerCase())) {
+          places[i].setVisible(true)
+        } else {
+          if (infoWindow.marker === places[i]){
+            // close the info window if marker removed
+            infoWindow.close();
+          }
+          places[i].setVisible(false)
+        }
+      })
+    } else {
+      markers.forEach((l,i) => {
+        if (places.length && places[i]) {
+          places[i].setVisible(true)
+        }
+      })
+    }
+*/
       return (
         <div>
-      <h1 className="heading" > Top 5 places to visit in Plovdiv, Bulgaria </h1>
       <div className="mapContainer">
+      <h1 className="heading" > Restaurants in Plovdiv</h1>
+      <Hamburger />
         <section className="menu" tabIndex="0">
           <div id='sidebar'>
-          <button type="button" className="btn btn-default btn-sm">
-        <span className="glyphicon glyphicon-menu-hamburger"></span> Menu
-      </button>
+          <div className='search'>
+            <input
+              type="text"
+              placeholder="Filter"
+              value={ query }
+              onChange={(e) => this.updateQuery(e.target.value)}/>
+                        </div>
       <div className = 'list'>
       <ul className = 'places'>{
         markers.map((marker,i) =>
@@ -47,13 +76,15 @@ axios.get(endPoint)
         </div>
         </div>
         </section>
-
+        <div id='map'>
         <Map
-        containerElement={ <div style={{ height: `100vh`,  width: `80%` }} /> }
-        mapElement={ <div style={{ height: `100vh`, margin: 0 }} /> }
-        loadingElement={<div style={{ height: `100vh`, width: `80%`, margin: 0 }} />}
+        containerElement={ <div className='map' style={{ height: `100vh` }} /> }
+        mapElement={ <div style={{ height: `100vh`}} /> }
+        loadingElement={<div className='loadingEl' style={{ height: `100vh` }} />}
         googleMapURL ='https://maps.googleapis.com/maps/api/js?key=AIzaSyCMGeelHXsg0DHtykZeMFwRCQAmbc7M71c&v=3.exp&libraries=geometry,drawing,places'
         markers = {this.state.markers}/>
+        </div>
+
       </div>
       </div>
     );
