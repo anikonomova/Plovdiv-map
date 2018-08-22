@@ -28,6 +28,17 @@ axios.get(endPoint)
   console.log("Error!" + error)
 })
 }
+// click on list opens InfoWindow
+
+onclickList= () => {
+  const markers = this.state.markers;
+
+   document.querySelector('.places').addEventListener('click', function (e) {
+     if (e.target && e.target.nodeName === "LI") {
+      markers.openInfoWindow()
+     }
+   })
+ }
 
     render() {
       const {markers, query, places, infoWindow} = this.state;
@@ -70,8 +81,8 @@ axios.get(endPoint)
       <ul className = 'places'>{
         markers.map((marker,i) =>
       (<li key={i}>{marker.name}</li>))
-        //onClick={() => {this.props.onToggleOpen(marker.id)}}
-      }
+    }
+        //onClick={() => {this.props.onclickList()}}
       </ul>
         </div>
         </div>

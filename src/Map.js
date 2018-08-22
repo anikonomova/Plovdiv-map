@@ -15,11 +15,7 @@ const { compose, withProps, withStateHandlers } = require("recompose");
       isOpen: !isOpen,
       InfoWindowIndex: i
     }),
-  /*  onclickList: (onclickList, openInfoWindow) => {
-      document.querySelector('.places').addEventListener('click', function (e) {
-        if (e.target && e.target.nodeName === "LI") {
-          openInfoWindow(e)
-        }
+  /*
       })
     } */
   }),
