@@ -41,6 +41,8 @@ componentDidMount() {
   this.getVenues()
 }
 
+//fetch foursquare, get getVenues
+
 getVenues = () => {
   const endPoint = 'https://api.foursquare.com/v2/venues/search?ll=42.148549,24.752780&&query=restaurant&intent=checkin&client_id=SNUFI41U1RKL0CU4SQWG0JMXK1LHGB5T5GVNQQ22L521FJNA&client_secret=C0ULCJZYKJGXBUULDW0PGRU5HOS2GD1WL4GBYTC43VLK3OBM&v=20180819&v=20180819';
 
@@ -55,16 +57,6 @@ axios.get(endPoint)
 })
 }
 // click on list opens InfoWindow
-
-onclickList= () => {
-  const markers = this.state.markers;
-
-   document.querySelector('.places').addEventListener('click', function (e) {
-     if (e.target && e.target.nodeName === "LI") {
-      markers.openInfoWindow()
-     }
-   })
- }
 
     render() {
       const {markers, query, places, infoWindow} = this.state;
@@ -106,7 +98,10 @@ onclickList= () => {
       <div className = 'list'>
       <ul className = 'places'>{
         markers.map((marker,i) =>
-      (<li key={i}>{marker.name}</li>))
+      (<li key={i}
+        onClick={() => {this.openInfoWindow(marker.id)}}>
+        {marker.name}</li>
+      ))
     }
       </ul>
         </div>
