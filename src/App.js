@@ -8,8 +8,34 @@ class App extends Component {
   state = {
       markers: [],
       query:'',
-      places: []
+      places: [],
+      isOpen: false,
+      openInfoWindow: null,
+      InfoWindowIndex: ''
   }
+
+
+onToggleOpen = () => {
+  this.setState({
+    isOpen: true
+  })
+}
+
+onToggleClose = () => {
+  this.setState({
+    isOpen: false
+  })
+}
+
+openInfoWindow = (marker) => {
+         this.setState({
+         isOpen : true,
+         InfoWindowIndex: marker
+    })
+  }
+
+
+
 
 componentDidMount() {
   this.getVenues()
@@ -82,7 +108,6 @@ onclickList= () => {
         markers.map((marker,i) =>
       (<li key={i}>{marker.name}</li>))
     }
-        //onClick={() => {this.props.onclickList()}}
       </ul>
         </div>
         </div>
@@ -93,7 +118,13 @@ onclickList= () => {
         mapElement={ <div style={{ height: `100vh`}} /> }
         loadingElement={<div className='loadingEl' style={{ height: `100vh` }} />}
         googleMapURL ='https://maps.googleapis.com/maps/api/js?key=AIzaSyCMGeelHXsg0DHtykZeMFwRCQAmbc7M71c&v=3.exp&libraries=geometry,drawing,places'
-        markers = {this.state.markers}/>
+        markers = {this.state.markers}
+          openInfoWindow={this.openInfoWindow}
+          onToggleOpen={this.onToggleOpen}
+          isOpen={this.state.isOpen}
+          onCloseClick={this.onToggleOpen}
+          InfoWindowIndex={this.state.InfoWindowIndex}
+          />
         </div>
 
       </div>

@@ -1,27 +1,9 @@
 import React from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import Info from './InfoWindow';
-const { compose, withProps, withStateHandlers } = require("recompose");
+const { compose } = require("recompose");
 
- const Map = compose(withStateHandlers(() => ({
-    isOpen: false,
-    openInfoWindow: null,
-    //onclickList: null
-  }), {
-    onToggleOpen: ({ isOpen }) => () => ({
-      isOpen: !isOpen,
-    }),
-    openInfoWindow: ({ openInfoWindow, isOpen }) => (i) => ({
-      isOpen: !isOpen,
-      InfoWindowIndex: i
-    }),
-  /*
-      })
-    } */
-  }),
-
-
-  withScriptjs,withGoogleMap)(props => (
+ const Map = compose(withScriptjs,withGoogleMap)(props => (
       <GoogleMap
         center = { { lat: 42.148549, lng: 24.752780 } }
         defaultZoom = { 14 }
