@@ -5,11 +5,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "create-react-app": "^1.5.2",
+    "escape-regex-string": "^1.0.6",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-google-map": "^3.1.1",
     "react-google-maps": "^9.4.5",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "sort-by": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

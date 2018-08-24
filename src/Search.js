@@ -10,6 +10,10 @@ class Search extends Component {
     query: ''
   }
 
+  updateList = () => {
+      let filtered = [];
+      filtered.push('markers')
+}
   filterLocations = (query) => {
     let filtered = this.props.markers
 
@@ -17,7 +21,7 @@ class Search extends Component {
       const match = new RegExp(escapeRegExp(query), 'i');
       filtered = this.props.markers.filter((marker) => match.test(marker.name))
       } else {
-            filtered = this.props.markers
+        this.updateList();
         }
 
 
@@ -29,6 +33,7 @@ class Search extends Component {
         <div id='sidebar'>
         <div className='search'>
           <input
+            role="search"
             type="text"
             placeholder="Filter"
             value={ this.filtered }

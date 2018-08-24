@@ -54,17 +54,17 @@ getVenues = () => {
 axios.get(endPoint)
 .then(response => {
   this.setState ({
-    markers: response.data.response.venues
+    markers: response.data.response.venues,
+    filtered: response.data.response.venues
+        })
   })
-})
+
 .catch(error => {
   console.log("Error!" + error)
 })
 }
-// click on list opens InfoWindow
 
     render() {
-      const {markers} = this.state;
 
       return (
         <div>
@@ -73,7 +73,7 @@ axios.get(endPoint)
       <Hamburger />
       <section className="menu" tabIndex="0">
       <Search
-          markers={markers}
+          markers={this.state.markers}
           filtered={this.state.filtered}
           updateQuery={this.updateQuery.bind(this)}
           openInfoWindow={this.openInfoWindow}
