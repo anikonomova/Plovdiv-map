@@ -3,6 +3,7 @@ import './App.css';
 import Map from './Map';
 import axios from 'axios';
 import Hamburger from './hamburger'
+import Search from './Search';
 
 class App extends Component {
   state = {
@@ -11,7 +12,8 @@ class App extends Component {
       places: [],
       isOpen: false,
       openInfoWindow: null,
-      InfoWindowIndex: ''
+      InfoWindowIndex: '',
+      filtered: []
   }
 
 
@@ -34,6 +36,9 @@ openInfoWindow = (marker) => {
     })
   }
 
+  updateQuery = (filtered) => {
+      this.setState({ filtered })
+    }
 
 
 
@@ -59,53 +64,20 @@ axios.get(endPoint)
 // click on list opens InfoWindow
 
     render() {
-      const {markers, query, places, infoWindow} = this.state;
+      const {markers} = this.state;
 
-  /*  if (query) {
-      markers.forEach((l,i) => {
-        if(l.name.toLowerCase().includes(query.toLowerCase())) {
-          places[i].setVisible(true)
-        } else {
-          if (infoWindow.marker === places[i]){
-            // close the info window if marker removed
-            infoWindow.close();
-          }
-          places[i].setVisible(false)
-        }
-      })
-    } else {
-      markers.forEach((l,i) => {
-        if (places.length && places[i]) {
-          places[i].setVisible(true)
-        }
-      })
-    }
-*/
       return (
         <div>
       <div className="mapContainer">
       <h1 className="heading" > Restaurants in Plovdiv</h1>
       <Hamburger />
-        <section className="menu" tabIndex="0">
-          <div id='sidebar'>
-          <div className='search'>
-            <input
-              type="text"
-              placeholder="Filter"
-              value={ query }
-              onChange={(e) => this.updateQuery(e.target.value)}/>
-                        </div>
-      <div className = 'list'>
-      <ul className = 'places'>{
-        markers.map((marker,i) =>
-      (<li key={i}
-        onClick={() => {this.openInfoWindow(marker.id)}}>
-        {marker.name}</li>
-      ))
-    }
-      </ul>
-        </div>
-        </div>
+      <section className="menu" tabIndex="0">
+      <Search
+          markers={markers}
+          filtered={this.state.filtered}
+          updateQuery={this.updateQuery.bind(this)}
+          openInfoWindow={this.openInfoWindow}
+      />
         </section>
         <div id='map'>
         <Map
@@ -114,11 +86,12 @@ axios.get(endPoint)
         loadingElement={<div className='loadingEl' style={{ height: `100vh` }} />}
         googleMapURL ='https://maps.googleapis.com/maps/api/js?key=AIzaSyCMGeelHXsg0DHtykZeMFwRCQAmbc7M71c&v=3.exp&libraries=geometry,drawing,places'
         markers = {this.state.markers}
-          openInfoWindow={this.openInfoWindow}
-          onToggleOpen={this.onToggleOpen}
-          isOpen={this.state.isOpen}
-          onCloseClick={this.onToggleOpen}
-          InfoWindowIndex={this.state.InfoWindowIndex}
+        openInfoWindow={this.openInfoWindow}
+        onToggleOpen={this.onToggleOpen}
+        isOpen={this.state.isOpen}
+        onCloseClick={this.onToggleClose}
+        InfoWindowIndex={this.state.InfoWindowIndex}
+        filtered={this.state.filtered}
           />
         </div>
 
