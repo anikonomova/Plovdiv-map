@@ -24,7 +24,6 @@ class Search extends Component {
         this.updateList();
         }
 
-
         this.props.updateQuery(filtered)
   }
     render() {
@@ -33,9 +32,12 @@ class Search extends Component {
         <div id='sidebar'>
         <div className='search'>
           <input
-            role="search"
-            type="text"
-            placeholder="Filter"
+            role='search'
+            aria-label = 'search'
+            tabIndex = {0}
+            type='text'
+            className='input'
+            placeholder='Filter'
             value={ this.filtered }
             onChange={(e) => this.filterLocations(e.target.value)}/>
                       </div>
@@ -43,12 +45,17 @@ class Search extends Component {
                         <ul className = 'places'>{
                           this.props.filtered.map((marker) =>
                           (<li key={marker.id}
-                            onClick={() => {this.props.openInfoWindow(marker.id)}}>
-                            {marker.name}
+                              tabIndex={0}
+                              onClick={() => {this.props.openInfoWindow(marker.id)}}>
+                              {marker.name}
                             </li>
                           ))
                         }
                         </ul>
+                      </div>
+                      <div id='footer'>
+                      Data from	<a href="https://foursquare.com/" tabIndex={0}
+                      aria-label="Link to foursquare site"> Foursquare API.</a>
                       </div>
                     </div>
                   )}

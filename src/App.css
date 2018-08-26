@@ -9,6 +9,12 @@
   left: 35%;
   width: 65%;
 }
+#mapElement {
+  height: 100vh;
+  left: 35%;
+  width: 65%;
+}
+
 .heading {
   background-color: #222;
   height: 80px;

@@ -1,5 +1,5 @@
 import React from 'react';
-
+//hide/show sidebar on hamburger
 const Hamburger = ({ toggle }) => {
 
   toggle = () => {
@@ -7,17 +7,17 @@ const Hamburger = ({ toggle }) => {
         menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 
         const hamburger = document.querySelector('.hamburger');
-        hamburger.style.left = hamburger.style.left === '20%' ? '0' : '20%';
+        hamburger.style.left = hamburger.style.left === '35%' ? '2%' : '35%';
 
 
         const map = document.querySelector('#map');
-        map.style.left = map.style.left === '20%' ? '0' : '20%';
-        map.style.width = map.style.width === '80%' ? '100vw' : '80%';
+        map.style.left = map.style.left === '35%' ? '0' : '35%';
+        map.style.width = map.style.width === '65%' ? '100vw' : '65%';
 
         }
 
     return (
-      <div
+      <div tabIndex="0" aria-label='Show/Hide filter and list of restaurants'
         className="hamburger"
         onClick={(event) => toggle()}
         >

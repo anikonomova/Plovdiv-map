@@ -22,13 +22,9 @@ const { compose } = require("recompose");
                   id={marker.id}
                   name={marker.name}
                   position={{ lat: marker.location.lat, lng: marker.location.lng }}
-                  address={marker.location.formattedAddress}
                   onClick={() => {props.openInfoWindow(marker.id)}}
-                  animation={props.InfoWindowIndex === marker.id ? window.google.maps.Animation.BOUNCE : window.google.maps.Animation.DROP
-                    /*window.google.maps.event.addListener(marker, 'click', function() {
-                                                  marker.setAnimation(window.google.maps.Animation.BOUNCE);
-                                                })*/
-                                              }
+                  // the idea for fading animation is adapted from Study jam with Eman Zhagloul ---
+                  animation={props.InfoWindowIndex === marker.id ? window.google.maps.Animation.BOUNCE : window.google.maps.Animation.DROP}
               >
               {(props.isOpen && props.InfoWindowIndex === marker.id) && <InfoWindow onCloseClick={props.onToggleClose}>
               <Info
