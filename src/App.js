@@ -69,7 +69,7 @@ axios.get(endPoint)
 
       return (
         <div>
-      <div className="mapContainer">
+      <div className="mapContainer" tabIndex = {-1}>
       <h1 className="heading" > Restaurants in Plovdiv</h1>
       <Hamburger />
       <section className="menu" tabIndex="0">

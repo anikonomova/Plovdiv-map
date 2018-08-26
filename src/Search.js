@@ -34,7 +34,7 @@ class Search extends Component {
           <input
             role='search'
             aria-label = 'search'
-            tabIndex = {0}
+            tabIndex = {1}
             type='text'
             className='input'
             placeholder='Filter'
@@ -45,7 +45,7 @@ class Search extends Component {
                         <ul className = 'places'>{
                           this.props.filtered.map((marker) =>
                           (<li key={marker.id}
-                              tabIndex={0}
+                              tabIndex={1}
                               onClick={() => {this.props.openInfoWindow(marker.id)}}>
                               {marker.name}
                             </li>
