@@ -62,7 +62,7 @@
 .list li{
   font-size: 13px;
   color: #42dcf4;
-  font-weight: bolder;
+  font-weight: bold;
   border-bottom: 0.5px solid grey;
   cursor: pointer;
 }
@@ -80,7 +80,7 @@
     padding: 15px;
   }
   .list li {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: bold;
   }
 
@@ -111,7 +111,7 @@
 
 }
 
-@media screen and (max-width: 5200px) {
+@media screen and (max-width: 520px) {
   .heading {
     font-size: 17px;
   }
@@ -119,11 +119,11 @@
     width: 35%;
   }
   .list li {
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: bold;
   }
   #footer {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
   }
 }
