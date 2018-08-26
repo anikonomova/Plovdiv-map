@@ -13,14 +13,22 @@ const { compose } = require("recompose");
       {
         props.filtered.map(
           (marker)=>(
-            <div key={marker.id}>
-              <Marker
-              id={marker.id}
-              name={marker.name}
-              position={{ lat: marker.location.lat, lng: marker.location.lng }}
-              address={marker.location.formattedAddress}
-              onClick={() => {props.openInfoWindow(marker.id)}}
-              animation={window.google.maps.Animation.DROP}
+            <div
+              id='map'
+              role='region'
+              aria-label='map'
+              key={marker.id}>
+                <Marker
+                  id={marker.id}
+                  name={marker.name}
+                  position={{ lat: marker.location.lat, lng: marker.location.lng }}
+                  address={marker.location.formattedAddress}
+                  onClick={() => {props.openInfoWindow(marker.id)}}
+                  animation={props.InfoWindowIndex === marker.id ? window.google.maps.Animation.BOUNCE : window.google.maps.Animation.DROP
+                    /*window.google.maps.event.addListener(marker, 'click', function() {
+                                                  marker.setAnimation(window.google.maps.Animation.BOUNCE);
+                                                })*/
+                                              }
               >
               {(props.isOpen && props.InfoWindowIndex === marker.id) && <InfoWindow onCloseClick={props.onToggleClose}>
               <Info
