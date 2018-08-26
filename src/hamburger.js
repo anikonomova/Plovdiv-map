@@ -10,7 +10,7 @@ const Hamburger = ({ toggle }) => {
         hamburger.style.left = hamburger.style.left === '35%' ? '2%' : '35%';
 
 
-        const map = document.querySelector('#map');
+        const map = document.querySelector('#mapElement');
         map.style.left = map.style.left === '35%' ? '0' : '35%';
         map.style.width = map.style.width === '65%' ? '100vw' : '65%';
 
