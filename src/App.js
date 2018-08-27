@@ -5,6 +5,9 @@ import axios from 'axios';
 import Hamburger from './hamburger'
 import Search from './Search';
 
+function loadMap() {
+    window.loadedMap = true;
+  }
 
 class App extends Component {
   state = {
@@ -14,7 +17,7 @@ class App extends Component {
       isOpen: false,
       openInfoWindow: null,
       InfoWindowIndex: '',
-      filtered: []
+      filtered: [],
   }
 
 
@@ -45,6 +48,15 @@ updateQuery = (filtered) => {
 
 componentDidMount() {
   this.getVenues()
+
+// checks if the map has loaded, if not, calls the showError function
+
+  window.loadMap = loadMap;
+  setTimeout(() => {
+  if (!window.loadedMap) {
+      this.showError();
+    }
+  }, 3000);
 }
 
 //fetch foursquare with axios, get getVenues
@@ -61,33 +73,38 @@ axios.get(endPoint)
   })
 
 .catch(error => {
-  console.log("Error!" + error)
+  alert("Oops! Something went wrong while fetching data from Foursquare API! Please try again...")
+  console.log("Error Foursquare!" + error)
 })
+}
+
+showError = () => {
+  alert('Oops!!! Something went wrong! Please try again...!')
 }
 
     render() {
 
       return (
-        <div>
-      <div className="mapContainer" tabIndex = {-1}>
-      <h1 className="heading" > Restaurants in Plovdiv</h1>
-      <Hamburger />
-      <section className="menu" tabIndex="0">
-      <Search
-          markers={this.state.markers}
-          filtered={this.state.filtered}
-          updateQuery={this.updateQuery.bind(this)}
-          openInfoWindow={this.openInfoWindow}
-          changeIcon={this.changeIcon}
-      />
-        </section>
+        <main>
+          <div className="mapContainer" tabIndex = {-1}>
+          <h1 className="heading" > Restaurants in Plovdiv</h1>
+          <Hamburger />
+          <section className="menu" tabIndex="0">
+            <Search
+              markers={this.state.markers}
+              filtered={this.state.filtered}
+              updateQuery={this.updateQuery.bind(this)}
+              openInfoWindow={this.openInfoWindow}
+              changeIcon={this.changeIcon}
+              />
+            </section>
         <div id='mapElement' tabIndex="-1"
         role="application">
-        <Map
+      { (navigator.onLine) && (<Map
           containerElement={ <div className='map' style={{ height: `100vh` }} /> }
           mapElement={ <div style={{ height: `100vh`}} /> }
           loadingElement={<div className='loadingEl' style={{ height: `100vh` }} />}
-          googleMapURL ='https://maps.googleapis.com/maps/api/js?key=AIzaSyCMGeelHXsg0DHtykZeMFwRCQAmbc7M71c&v=3.exp&libraries=geometry,drawing,places'
+          googleMapURL ='https://maps.googleapis.com/maps/api/js?key=AIzaSyCMGeelHXsg0DHtykZeMFwRCQAmbc7M71c&v=3.exp&libraries=geometry,drawing,places&callback=loadMap'
           markers = {this.state.markers}
           openInfoWindow={this.openInfoWindow}
           onToggleOpen={this.onToggleOpen}
@@ -95,11 +112,17 @@ axios.get(endPoint)
           onCloseClick={this.onToggleClose}
           InfoWindowIndex={this.state.InfoWindowIndex}
           filtered={this.state.filtered}
-          />
+          />)
+        }
+        { (!navigator.onLine) &&
+           (<div>
+             <h2>Oops! Something went wrong! Check your internet connection!</h2>
+             </div>)
+           }
         </div>
 
       </div>
-      </div>
+      </main>
     );
   }
 }
