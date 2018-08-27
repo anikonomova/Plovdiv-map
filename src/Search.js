@@ -49,6 +49,7 @@ class Search extends Component {
                           (<li key={marker.id}
                               tabIndex={1}
                               role="menuitem"
+                              arial-label="Listitem- restaurants"
                               onClick={() => {this.props.openInfoWindow(marker.id)}}>
                               {marker.name}
                             </li>
