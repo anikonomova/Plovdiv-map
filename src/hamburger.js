@@ -17,7 +17,9 @@ const Hamburger = ({ toggle }) => {
         }
 
     return (
-      <div tabIndex="0" aria-label='Show/Hide filter and list of restaurants'
+      <div tabIndex="0"
+        aria-label='Show/Hide filter and list of restaurants'
+        role='navigation'
         className="hamburger"
         onClick={(event) => toggle()}
         >

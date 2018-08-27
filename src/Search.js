@@ -42,10 +42,13 @@ class Search extends Component {
             onChange={(e) => this.filterLocations(e.target.value)}/>
                       </div>
                       <div className = 'list'>
-                        <ul className = 'places'>{
+                        <ul className = 'places'
+                            role ="menu"
+                            arial-label="List of restaurants">{
                           this.props.filtered.map((marker) =>
                           (<li key={marker.id}
                               tabIndex={1}
+                              role="menuitem"
                               onClick={() => {this.props.openInfoWindow(marker.id)}}>
                               {marker.name}
                             </li>
