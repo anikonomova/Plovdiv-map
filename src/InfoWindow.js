@@ -3,7 +3,7 @@ import React from 'react';
 const Info = ({ info }) => {
 
     return (
-      <div  tabIndex='1'
+      <div  tabIndex='0'
             style={{ padding: `10px` }}>
         <div style={{ fontSize: `16px`, fontColor: `black` }}>
         {info}
